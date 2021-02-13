@@ -80,9 +80,19 @@ function iniciarJogo(){
     if(direction == "up") snakeY -= box;
     if(direction == "down") snakeY += box;
 
-    //Para tirar o último elemento do array e "andar"
-    //Temos o movimento, mas não a cabeça nova da cobrinha
-    snake.pop();
+    /*Caso a posição de snakeX seja diferente de foodX e a snakeY seja diferente da foodY vai-se retirar o último elemento
+    da cobrinha, caso não ela vai aumentar e teremos novamente a função de gerar a comida em lugar aleatório para posicionar a
+    comida automaticamente. */
+
+    if(snakeX != food.x || snakeY != food.y){
+       //Para tirar o último elemento do array e "andar"
+       //Temos o movimento, mas não a cabeça nova da cobrinha
+       snake.pop();
+    }else{
+        food.x = Math.floor(Math.random() * 15 + 1) * box,
+        food.y = Math.floor(Math.random() * 15 + 1) * box    
+    }
+    
     //método unshift, que acrescenta a frente do array
     let newHead = {
         x: snakeX,
