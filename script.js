@@ -66,6 +66,19 @@ function iniciarJogo(){
     if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
     if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
     if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
+    //Verificar se há choque da cabeça com o corpo 
+    //Usaremos o loop for para checar se cada coordenada se choca com o i(corpo)
+    /*Se a posição 0(a cabeça) se chocar com a posição 1(corpo) para o jogo e acionar função de alert*/
+    //Começa com 1 porque é a partir do corpo
+    for(i = 1; i < snake.length; i++){
+        //Se a posição da cabeça tanto de x quanto y forem iguais às posições de x e y do corpo o jogo irá parar
+        if(snake[0].x == snake[i].x && snake[0].y == snake[i].y){
+            //Parando o setInterval() com o clearInterval()
+            clearInterval(jogo);
+            alert('Game Over! =( ');
+        }
+    }
+    
     criarBG();
     criarCobrinha();
     drawFood();
