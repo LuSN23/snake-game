@@ -26,7 +26,29 @@ function criarCobrinha(){
 nesse intervalo. Para quando o jogo acabar a função parar o jogo quando a cobrinha tocar 
 no próprio corpo dela.*/
 //Uso do método de Window setInterval()
+
+//Captura de teclas com evento de escuta
+//keydown = evento de clique do teclado e chama a função update
+document.addEventListener('keydown', update);
+
+//A nossa direção não pode ser oposta se não dá um bug, por isso o uso do &&
+function update(event){
+    //Se o botão for 37 e a direção não for right muda-se a direção para left
+    if(event.keyCode == 37 && direction != "right") direction = "left";
+    if(event.keyCode == 38 && direction != "down") direction = "up";
+    if(event.keyCode == 39 && direction != "left") direction = "right";
+    if(event.keyCode == 40 && direction != "up" ) direction = "down";
+}
+
 function iniciarJogo(){
+    /*Quando passar do tamanho do canvas vai para a posição 0 */ 
+    //Aqui ela só recebe uma nova propriedade, mas dá uma ilusão
+    /*Se a cabeça dela(snake) na posição x for maior que 15 vezes o tamanho do box(canvas) ela sairia da tela, 
+    se a direção fosse para a direita, então se isso acontecer ela recebe o valor de 0 para aparecer no começo da tela(plano cartesiano que vai de 0 a 16)*/
+    if(snake[0].x > 15 * box && direction == "right") snake[0].x = 0;
+    if(snake[0].x < 0 && direction == "left") snake[0].x = 16 * box;
+    if(snake[0].y > 15 * box && direction == "down") snake[0].y = 0;
+    if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
     criarBG();
     criarCobrinha();
     //Criando a posição x e y da cobrinha para quando formos setar os movimentos, ela ter um ponto de partida 
@@ -53,3 +75,4 @@ function iniciarJogo(){
 }
 //A cada 100 milisegundos a variável jogo é renovada(dá continuidade ao jogo sem travar)
 let jogo = setInterval(iniciarJogo, 100);
+
