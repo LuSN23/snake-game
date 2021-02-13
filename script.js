@@ -7,6 +7,16 @@ snake[0] = {
     y: 8 * box
 }
 let direction = "right";
+/* Para que a comida não fique sempre no mesmo lugar 
+quando a cobrinha passa por ela, usaremos 2 métodos para a criação
+de números aleatórios. */
+//Math.floor = retorna número sem casas decimais/para tirá-las
+//Math.random = retorna um número aleatório entre(no meio de) 0 e 1
+//"Setei" o tamanho do canvas também para não haver ultrapassagem
+let food = {
+    x: Math.floor(Math.random() * 15 + 1) * box,
+    y: Math.floor(Math.random() * 15 + 1) * box
+}
 
 function criarBG(){
     context.fillStyle = "lightgreen";
@@ -22,6 +32,13 @@ function criarCobrinha(){
       context.fillRect(snake[i].x, snake[i].y, box, box);
    }
 }
+
+//Comida
+function drawFood(){
+   context.fillStyle = "red";
+   context.fillRect(food.x, food.y, box, box);
+}
+
 /*Função que atualiza o jogo de tempos em tempos para que a cobrinha consiga se mexer 
 nesse intervalo. Para quando o jogo acabar a função parar o jogo quando a cobrinha tocar 
 no próprio corpo dela.*/
@@ -51,6 +68,7 @@ function iniciarJogo(){
     if(snake[0].y < 0 && direction == "up") snake[0].y = 16 * box;
     criarBG();
     criarCobrinha();
+    drawFood();
     //Criando a posição x e y da cobrinha para quando formos setar os movimentos, ela ter um ponto de partida 
     let snakeX = snake[0].x;
     let snakeY = snake[0].y;
